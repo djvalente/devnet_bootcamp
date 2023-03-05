@@ -1,2 +1,3 @@
-# devnet_bootcamp
-Code created on Devnet Expert Bootcamp
+# Devnet Expert Bootcamp
+
+The road to Devnet Expert starts with DEVCOR and then Lab+Lab+Lab
