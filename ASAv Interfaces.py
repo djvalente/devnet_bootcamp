@@ -1,9 +1,6 @@
 import requests
 import json
-
-server = "https://10.255.1.101"
-username = "admin"
-password = "cisco"
+from getpass import getpass
 
 # GET physical Interfaces
 def get_interfaces_physical(server, username, password):
@@ -23,38 +20,45 @@ def get_interfaces_physical(server, username, password):
     
 
 def configure_interface_physical(server, username, password):
-    api_path = "/api/interfaces/physical/GigabitEthernet0_API_SLASH_1"
+    api_path = "/api/interfaces/physical/GigabitEthernet0_API_SLASH_2"
     headers = {'Content-Type': 'application/json'}
 
     url = server + api_path
     basicauth = (username, password)
 
+    int_name = input("Enter your interface name: ")
+    int_desc = input("Enter your interface description: ")
+    int_zone =input("Enter your interface zone name: ")
+    int_sec = int(input("Enter your interface security level: "))
+    int_ip = input("Enter your interface IP Address: ")
+    int_mask = input("Enter your interface Subnet Mask: ")
+
     asa_payload = {
-        "securityLevel": 100,
+        "securityLevel": int_sec,
         "kind": "object#GigabitInterface",
         "channelGroupMode": "active",
         "flowcontrolLow": -1,
-        "name": "DMZ",
+        "name": int_zone,
         "duplex": "auto",
         "forwardTrafficSFR": False,
-        "hardwareID": "GigabitEthernet0/1",
+        "hardwareID": int_name,
         "mtu": 1500,
         "lacpPriority": -1,
         "flowcontrolHigh": -1,
         "ipAddress": {
             "ip": {
             "kind": "IPv4Address",
-            "value": "192.168.1.1"
+            "value": int_ip
             },
             "kind": "StaticIP",
             "netMask": {
             "kind": "IPv4NetMask",
-            "value": "255.255.255.0"
+            "value": int_mask
             }
         },
         "flowcontrolOn": False,
         "shutdown": False,
-        "interfaceDesc": "DMZ ZONE (Configured by Python)",
+        "interfaceDesc": int_desc,
         "managementOnly": False,
         "channelGroupID": "",
         "speed": "auto",
@@ -71,10 +75,20 @@ def configure_interface_physical(server, username, password):
         print("Status code: " + str(r.status_code))
         print(r.content)
 
+server = "https://10.255.1.101"
 
 #### call the function to get all physical interfaces ####
+# username = "admin"
+# password = "cisco"
 # get_interfaces_physical(server, username, password)
 
 #### call the function to configure g0/1 ####
-configure_interface_physical(server, username, password)
 
+print("\nWelcome to ASA Automation Script\n")
+username = input("What is your username: ")
+password = getpass("Please input your password")
+
+if username == "admin" and password == "cisco":
+    configure_interface_physical(server, username, password)
+else:
+    print("\n\nAuthentication Failed\n")
