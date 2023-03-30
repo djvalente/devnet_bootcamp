@@ -13,8 +13,30 @@ conn = manager.connect(
 
 print ("\n NETCONF Connection Established")
 
-# Imprimir a running config em XML
-netconf_reply = conn.get_config(source="running")
+# Filter to use on the Running Config
+my_filter1 = """
+<filter>
+    <interfaces xmlns = "urn:ietf:params:xml:ns:yang:ietf-interfaces">
+
+    </interfaces>
+</filter>
+"""
+
+my_filter2 = """
+<filter>
+    <routing xmlns="urn:ietf:params:xml:ns:yang:ietf-routing">
+        <routing-instance>
+            <routing-protocols></routing-protocols>
+        </routing-instance>
+    </routing>
+</filter>
+"""
+
+# Imprimir a running config em XML - GET_CONFIG gets configuration Data
+
+# netconf_reply = conn.get_config(source="running") # Full config
+netconf_reply = conn.get_config(source="running", filter = my_filter2) # Full config
+
 
 # Beautify the XML print
 beauty_xml = parseString(netconf_reply.xml).toprettyxml()

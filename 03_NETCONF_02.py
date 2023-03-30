@@ -13,8 +13,29 @@ conn = manager.connect(
 
 print ("\n NETCONF Connection Established")
 
-# Imprimir a running config em XML
-netconf_reply = conn.get_config(source="running")
+my_filter0 = """
+<filter>
+    <interfaces-state xmlns = "urn:ietf:params:xml:ns:yang:ietf-interfaces">
+
+    </interfaces-state>
+</filter>
+"""
+
+my_filter = """
+<filter>
+    <interfaces-state xmlns = "urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+            <name></name>
+            <statistics>
+                <in-octets></in-octets>
+            </statistics>
+        </interface>
+    </interfaces-state>
+</filter>
+"""
+
+# Print Operational Data using GET
+netconf_reply = conn.get(filter= my_filter)
 
 # Beautify the XML print
 beauty_xml = parseString(netconf_reply.xml).toprettyxml()
