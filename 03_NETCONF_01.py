@@ -15,4 +15,8 @@ print ("\n NETCONF Connection Established")
 
 # Imprimir a running config em XML
 netconf_reply = conn.get_config(source="running")
-print( parseString(netconf_reply.xml).toprettyxml() )
+
+# Beautify the XML print
+beauty_xml = parseString(netconf_reply.xml).toprettyxml()
+
+print(beauty_xml)
