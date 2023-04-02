@@ -35,7 +35,7 @@ my_filter2 = """
 # Imprimir a running config em XML - GET_CONFIG gets configuration Data
 
 # netconf_reply = conn.get_config(source="running") # Full config
-netconf_reply = conn.get_config(source="running", filter = my_filter2) # Full config
+netconf_reply = conn.get_config(source="running", filter = my_filter1) # Full config
 
 
 # Beautify the XML print

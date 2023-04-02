@@ -23,22 +23,24 @@ new_config = """
             <interface>
                 <name>GigabitEthernet2</name>
                 <description>Configured by DV through NETCONF</description>
-                <type xmlns:ianaift="urn:ietf:param:xml:ns:yang:iana-if-type>
+                <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
                     ianaift:ethernetCsmacd
                 </type>
                 <enabled>true</enabled>
-                <ipv4>
-
-                
+                <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+                    <address>
+                            <ip>10.255.2.1</ip>
+                            <netmask>255.255.255.0</netmask>
+                    </address>
                 </ipv4>
             </interface>
         </interfaces>
     </config>
 """
 
-# Print Operational Data using GET
+# Send configuration to the device
 netconf_reply = conn.edit_config(config = new_config, target = "running")
 
-# Print output
+# Print netconf response
 print(netconf_reply)
 
