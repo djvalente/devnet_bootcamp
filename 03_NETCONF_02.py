@@ -4,7 +4,7 @@ from xml.dom.minidom import parseString
 # Create an SSH Connection on port 830
 
 conn = manager.connect(
-    host = "10.255.1.102",
+    host = "10.255.1.101",
     port = "830",
     username = "admin",
     password = "cisco",

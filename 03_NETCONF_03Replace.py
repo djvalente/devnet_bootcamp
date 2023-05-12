@@ -27,7 +27,7 @@ new_config = """
                     ianaift:ethernetCsmacd
                 </type>
                 <enabled>true</enabled>
-                <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+                <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip" operation = 'replace'>
                     <address>
                             <ip>10.255.3.1</ip>
                             <netmask>255.255.255.0</netmask>
